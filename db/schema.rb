@@ -11,18 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140302015917) do
+ActiveRecord::Schema.define(version: 20140302050918) do
 
   create_table "articles", force: true do |t|
     t.string   "body"
-    t.string   "byline"
-    t.integer  "date"
+    t.string   "location"
+    t.string   "date"
     t.string   "title"
     t.string   "url"
-    t.string   "state_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "state_id"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
   end
 
   create_table "states", force: true do |t|

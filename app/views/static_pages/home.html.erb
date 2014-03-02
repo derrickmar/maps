@@ -1,2 +1,12 @@
-<h1>Find the articles that pertain to your state</h1>
+<div class="container">
+	<h1 class="col-centered">Find the articles that pertain to your state</h1>
 
+	<% @states.each do |state| %>
+	<h3 class="col-centered"> <%= state.name %>	</h3>
+	<% 	state.articles.each do |article| %>
+	<h4 class = "article_title" > <%= link_to(article.title, article.url) %> </h4>
+	<p> <%= article.body %> </p>
+	<% end %>
+	<% end %>
+	
+</div>

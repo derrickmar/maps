@@ -12,6 +12,11 @@ body {
 	padding-top: 70px;
 }
 
+#hello {
+  background-color: "purple";
+  height: 100px;
+}
+
 #logo {
   font-size: 1.7em;
   color: #fff;
@@ -22,4 +27,14 @@ body {
     color: #fff;
     text-decoration: none;
   }
+}
+
+/* home styles */
+.statenm {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.col-centered{
+    text-align: center;
 }

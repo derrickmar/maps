@@ -1,0 +1,89 @@
+<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="assets/style.css">
+ <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+ <style type="text/css">
+ html { height: 100% }
+ body { height: 100%; margin: 0; padding-top: 70px }
+ #map-canvas { height: 90%;
+  margin-top: 32px; }
+  </style>
+  <script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXuKyhnic9mXvb05c_Vyqxd73oX6bjk6w&sensor=false">
+  <!-- <script type="text/javascript" src="assets/marker_populator.js"> -->
+  </script>
+
+
+
+</head>
+<body>
+  <div id="map-canvas"/>
+  <button onclick="myFunction()">Try it</button>
+</body>
+
+  <script>
+  function myFunction()
+    {
+    alert("Hello World!");
+    }
+
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(37.09024, -95.712891),
+      zoom: 4,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map-canvas"),
+      mapOptions);
+    createMarkers(map);
+  }
+
+  function createMarkers(map) {
+    <% @articles.each do |article| %>
+    var latLng = new google.maps.LatLng(<%= article.latitude %>, 
+      <%= article.longitude %>);
+    /*var marker = new google.maps.Marker({
+      position: latLng,
+      map: map,
+      title:
+    });*/
+    createMarker(latLng, map, '<%= j article.title %>', '<%= j article.date %>',
+      '<%= j article.url %>', '<%= j article.body %>');
+    //marker.setMap(map);
+    /*google.maps.event.addListener(marker, 'click', function() {
+      createInfoWindow('<%= j article.title %>', '<%= j article.date %>',
+        '<%= j article.url %>', '<%= j article.body %>').open(map,marker);
+    });*/
+    <% end %>
+  }
+
+  function createMarker(latLng, map, title, date, url, body) {
+    var marker = new google.maps.Marker({
+      position: latLng,
+      map: map,
+      title: title
+    })
+    marker.setMap(map);
+    google.maps.event.addListener(marker, 'click', function() {
+      createInfoWindow(title, date,
+        url, body).open(map,marker);
+    });
+  }
+
+  function createInfoWindow(title, date, link, body) {
+    var infowindow = new google.maps.InfoWindow({
+      content: createInfoString(title, date, link, body)
+    });
+    return infowindow;
+  }
+  function createInfoString(title, date, link, body) {
+    var formattedTitle = '<h2>' + title + '</h2>';
+    var contentString = '<a href=' + link + ">" + formattedTitle + '</a>'
+    + '<b>' + date + '</b>'
+    + '<br></br>'
+    + body + '...';
+    return contentString;
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+</html>

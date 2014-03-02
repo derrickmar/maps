@@ -1,0 +1,6 @@
+<% @articles.each do |article| %>
+<%= render json: {
+      title: article.title,
+      body: article.body
+    } %>
+<% end %>
